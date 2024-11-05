@@ -1,11 +1,14 @@
 #!/bin/bash
 
-# Set default values for SSH_USERNAME and SSH_PASSWORD if not provided
+: ${ROOT_PASSWORD:?"Error: ROOT_PASSWORD environment variable is not set."}
 : ${SSH_USERNAME:=ubuntu}
 : ${SSH_PASSWORD:?"Error: SSH_PASSWORD environment variable is not set."}
+: ${CS_PASSWORD:?"Error: CS_PASSWORD environment variable is not set."}
 : ${AUTHORIZED_KEYS:=""}
 : ${GIT_USERNAME:=""}
 : ${GIT_EMAIL:=""}
+
+echo "root:$ROOT_PASSWORD" | chpasswd
 
 # Create the user with the provided username and set the password
 if id "$SSH_USERNAME" &>/dev/null; then
@@ -33,7 +36,12 @@ fi
 # Install vscode-server
 curl -LO https://raw.githubusercontent.com/b01/dl-vscode-server/refs/tags/0.2.3/download-vs-code.sh
 chmod +x download-vs-code.sh
-su $SSH_USERNAME -c './download-vs-code.sh "linux" "x64"'
+./download-vs-code.sh "linux" "x64"
+rm download-vs-code.sh
+
+# Install code-server
+curl -fsSL https://code-server.dev/install.sh | sh
+su $SSH_USERNAME -c 'PASSWORD=$CS_PASSWORD nohup code-server --app-name=devbox --auth=password --user-data-dir=/home/$SSH_USERNAME/workspace &'
 
 # Configure ssh
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
