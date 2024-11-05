@@ -45,7 +45,7 @@ rm download-vs-code.sh
 
 # Install and start code-server
 curl -fsSL https://code-server.dev/install.sh | sh
-su $USERNAME -c 'PASSWORD=$CS_PASSWORD nohup code-server --bind-addr=0.0.0.0:8080 --app-name=devbox --auth=password --user-data-dir=/home/$USERNAME/workspace &'
+su $USERNAME -c 'PASSWORD=$CS_PASSWORD nohup code-server --bind-addr=0.0.0.0:8080 --app-name=devbox --auth=password &'
 
 # Configure ssh
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
