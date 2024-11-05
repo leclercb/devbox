@@ -17,6 +17,10 @@ else
     echo "User $SSH_USERNAME created with the provided password"
 fi
 
+# Create home and workspace folders
+mkdir -p /home/$SSH_USERNAME/workspace
+chown -R $SSH_USERNAME:$SSH_USERNAME /home/$SSH_USERNAME
+
 # Configure git
 if [ -n "$GIT_USERNAME" ]; then
     su $SSH_USERNAME -c 'git config --global user.name "$GIT_USERNAME"'
@@ -30,10 +34,6 @@ fi
 curl -LO https://raw.githubusercontent.com/b01/dl-vscode-server/refs/tags/0.2.3/download-vs-code.sh
 chmod +x download-vs-code.sh
 su $SSH_USERNAME -c './download-vs-code.sh "linux" "x64"'
-
-# Create workspace folder
-mkdir -p /home/$SSH_USERNAME/workspace
-chown -R $SSH_USERNAME:$SSH_USERNAME /home/$SSH_USERNAME/workspace
 
 # Configure ssh
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
