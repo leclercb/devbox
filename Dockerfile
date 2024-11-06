@@ -3,7 +3,6 @@ FROM ubuntu:24.04
 
 # Arguments
 ARG NODE_VERSION="22"
-ARG DL_VSCODE_SERVER_VERSION="0.2.3"
 
 # Avoid interactive prompts during installation
 ENV DEBIAN_FRONTEND=noninteractive
@@ -25,12 +24,6 @@ RUN apt install -y git iproute2 iputils-ping nodejs openssh-server telnet vim
 
 # Install yarn
 RUN npm install --global yarn
-
-# Install vscode-server
-RUN curl -LO https://raw.githubusercontent.com/b01/dl-vscode-server/refs/tags/${DL_VSCODE_SERVER_VERSION}/download-vs-code.sh \
-    && chmod +x download-vs-code.sh \
-    && ./download-vs-code.sh "linux" "x64" \
-    && rm download-vs-code.sh
 
 # Install code-server
 RUN curl -fsSL https://code-server.dev/install.sh | sh
