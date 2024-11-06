@@ -1,10 +1,9 @@
+# Use an official Ubuntu base image
+FROM ubuntu:24.04
+
 # Arguments
-ARG UBUNTU_VERSION="24.04"
 ARG NODE_VERSION="22"
 ARG DL_VSCODE_SERVER_VERSION="0.2.3"
-
-# Use an official Ubuntu base image
-FROM ubuntu:${UBUNTU_VERSION}
 
 # Avoid interactive prompts during installation
 ENV DEBIAN_FRONTEND=noninteractive
