@@ -18,7 +18,6 @@ Then use the `[CS_PASSWORD]` password.
 
 | **Name**        | **Default Value** | **Required** | **Description**                                                          |
 |-----------------|-------------------|--------------|--------------------------------------------------------------------------|
-| HOSTNAME        | devbox            | No           | The hostname.                                                            |
 | USERNAME        | devbox            | No           | Your username.  This will also be your username for the SSH connections. |
 | PASSWORD        |                   | Yes          | Your password. This will also be your password for the SSH connections.  |
 | ROOT_PASSWORD   |                   | Yes          | The root password.                                                       |

@@ -2,8 +2,6 @@
 
 # Variables
 
-: ${HOSTNAME:=devbox}
-
 : ${USERNAME:=devbox}
 : ${PASSWORD:?"Error: PASSWORD environment variable is not set."}
 
@@ -14,9 +12,6 @@
 
 : ${GIT_USERNAME:=""}
 : ${GIT_EMAIL:=""}
-
-# Set the hostname
-hostname ${HOSTNAME}
 
 # Set the root password
 echo "root:${ROOT_PASSWORD}" | chpasswd
