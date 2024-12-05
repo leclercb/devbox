@@ -2,6 +2,8 @@
 
 # Variables
 
+: ${HOSTNAME:=ubuntu}
+
 : ${USERNAME:=ubuntu}
 : ${PASSWORD:?"Error: PASSWORD environment variable is not set."}
 
@@ -13,7 +15,10 @@
 : ${GIT_USERNAME:=""}
 : ${GIT_EMAIL:=""}
 
-# Set root password
+# Set the hostname
+hostname ${HOSTNAME}
+
+# Set the root password
 echo "root:${ROOT_PASSWORD}" | chpasswd
 
 # Create the user with the provided username and set the password
@@ -42,12 +47,15 @@ fi
 # Start code-server
 su ${USERNAME} -c 'PASSWORD=${CS_PASSWORD} nohup code-server --bind-addr=0.0.0.0:8080 --app-name=devbox --auth=password &'
 
+# Create .ssh folder
+mkdir -p /home/${USERNAME}/.ssh
+chmod 700 /home/${USERNAME}/.ssh
+chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh
+
 # Set the authorized keys from the AUTHORIZED_KEYS environment variable (if provided)
 if [ -n "${AUTHORIZED_KEYS}" ]; then
-    mkdir -p /home/${USERNAME}/.ssh
     echo "${AUTHORIZED_KEYS}" > /home/${USERNAME}/.ssh/authorized_keys
     chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh
-    chmod 700 /home/${USERNAME}/.ssh
     chmod 600 /home/${USERNAME}/.ssh/authorized_keys
     echo "Authorized keys set for user ${USERNAME}"
 fi

@@ -18,6 +18,7 @@ Then use the `[CS_PASSWORD]` password.
 
 | **Name**        | **Default Value** | **Required** | **Description**                                                          |
 |-----------------|-------------------|--------------|--------------------------------------------------------------------------|
+| HOSTNAME        | ubuntu            | No           | The hostname.                                                            |
 | USERNAME        | ubuntu            | No           | Your username.  This will also be your username for the SSH connections. |
 | PASSWORD        |                   | Yes          | Your password. This will also be your password for the SSH connections.  |
 | ROOT_PASSWORD   |                   | Yes          | The root password.                                                       |
@@ -32,6 +33,13 @@ Then use the `[CS_PASSWORD]` password.
 |----------|-------------------------------------|
 | 22       | The SSH port.                       |
 | 8080     | The code-server web interface port. |
+
+# Volumes
+
+| **Path**                   | **Description**                |
+|----------------------------|--------------------------------|
+| /home/[USERNAME]/.ssh      | To store your ssh user config. |
+| /home/[USERNAME]/workspace | Your workspace folder.         |
 
 # Docker compose
 
@@ -48,7 +56,8 @@ services:
       - GIT_USERNAME=git_username
       - GIT_EMAIL=git_email
     volumes:
-      - /volume1/docker/devbox/workspace:/path/to/workspace:rw
+      - /path/to/.ssh:/home/[USERNAME]/.ssh:rw
+      - /path/to/workspace:/home/[USERNAME]/workspace:rw
     ports:
       - 2022:22
       - 2080:8080
