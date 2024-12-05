@@ -47,6 +47,7 @@ services:
   devbox:
     image: ghcr.io/leclercb/devbox:main
     container_name: devbox
+    hostname: devbox
     environment:
       - USERNAME=your_username
       - PASSWORD=your_password
