@@ -2,9 +2,9 @@
 
 # Variables
 
-: ${HOSTNAME:=ubuntu}
+: ${HOSTNAME:=devbox}
 
-: ${USERNAME:=ubuntu}
+: ${USERNAME:=devbox}
 : ${PASSWORD:?"Error: PASSWORD environment variable is not set."}
 
 : ${ROOT_PASSWORD:?"Error: ROOT_PASSWORD environment variable is not set."}
