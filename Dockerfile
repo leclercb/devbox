@@ -20,7 +20,7 @@ RUN mkdir -p /etc/apt/keyrings \
     && apt update
 
 # Install packages
-RUN apt install -y git iproute2 iputils-ping nodejs openssh-server telnet vim
+RUN apt install -y git iproute2 iputils-ping nodejs openjdk-21-jdk openssh-server telnet vim
 
 # Install yarn
 RUN npm install --global yarn
