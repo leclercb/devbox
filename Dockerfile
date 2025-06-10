@@ -2,6 +2,7 @@
 FROM ubuntu:24.04
 
 # Arguments
+ARG JDK_VERSION="21"
 ARG NODE_VERSION="22"
 
 # Avoid interactive prompts during installation
@@ -20,7 +21,7 @@ RUN mkdir -p /etc/apt/keyrings \
     && apt update
 
 # Install packages
-RUN apt install -y git iproute2 iputils-ping nodejs openjdk-21-jdk openssh-server telnet vim
+RUN apt install -y git iproute2 iputils-ping nodejs openjdk-${JDK_VERSION}-jdk openssh-server telnet vim
 
 # Install yarn
 RUN npm install --global yarn
