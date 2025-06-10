@@ -13,7 +13,7 @@
 : ${GIT_USERNAME:=""}
 : ${GIT_EMAIL:=""}
 
-: ${SETUP_SCRIPT:="~/.devbox/setup.sh"}
+: ${SETUP_SCRIPT:="/home/${USERNAME}/.devbox/setup.sh"}
 
 # Set the root password
 echo "root:${ROOT_PASSWORD}" | chpasswd
@@ -60,10 +60,11 @@ if [ -n "${AUTHORIZED_KEYS}" ] && [ ! -f "/home/${USERNAME}/.ssh/authorized_keys
 fi
 
 # Call the setup script
+if [ -n "${SETUP_SCRIPT}" ] && [ ! -f "${SETUP_SCRIPT}" ]; then
 if [ -n "${SETUP_SCRIPT}" ]; then
     chmod +x "${SETUP_SCRIPT}"
     echo "Calling setup script"
-    "${SETUP_SCRIPT}"
+    su ${USERNAME} -c '${SETUP_SCRIPT}'
 fi
 
 # Start the SSH server
