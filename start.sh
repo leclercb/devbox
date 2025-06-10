@@ -61,7 +61,6 @@ fi
 
 # Call the setup script
 if [ -n "${SETUP_SCRIPT}" ] && [ ! -f "${SETUP_SCRIPT}" ]; then
-if [ -n "${SETUP_SCRIPT}" ]; then
     chmod +x "${SETUP_SCRIPT}"
     echo "Calling setup script"
     su ${USERNAME} -c '${SETUP_SCRIPT}'
