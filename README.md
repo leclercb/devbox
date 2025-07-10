@@ -18,8 +18,9 @@ Then use the `[CS_PASSWORD]` password.
 
 | **Name**        | **Default Value**                 | **Required** | **Description**                                                          |
 |-----------------|-----------------------------------|--------------|--------------------------------------------------------------------------|
-| USERNAME        | devbox                            | No           | Your username.  This will also be your username for the SSH connections. |
+| USERNAME        | devbox                            | No           | Your username. This will also be your username for the SSH connections.  |
 | PASSWORD        |                                   | Yes          | Your password. This will also be your password for the SSH connections.  |
+| UID             |                                   | No           | Your user id.                                                            |
 | ROOT_PASSWORD   |                                   | Yes          | The root password.                                                       |
 | CS_PASSWORD     |                                   | No           | The code-server web interface password.                                  |
 | AUTHORIZED_KEYS |                                   | No           | The list of authorized keys for the SSH connections.                     |

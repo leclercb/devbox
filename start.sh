@@ -4,6 +4,7 @@
 
 : ${USERNAME:=devbox}
 : ${PASSWORD:?"Error: PASSWORD environment variable is not set."}
+: ${UID:=""}
 
 : ${ROOT_PASSWORD:?"Error: ROOT_PASSWORD environment variable is not set."}
 : ${CS_PASSWORD:=""}
@@ -23,7 +24,9 @@ echo "root:${ROOT_PASSWORD}" | chpasswd
 if id "${USERNAME}" &>/dev/null; then
     echo "User ${USERNAME} already exists"
 else
-    useradd -ms /bin/bash "${USERNAME}"
+    USERADD_OPTIONS="-m -s /bin/bash"
+    [ -n "${UID}" ] && USERADD_OPTIONS="${USERADD_OPTIONS} -u ${UID}"
+    useradd ${USERADD_OPTIONS} "${USERNAME}"
     echo "User ${USERNAME} created with the provided password"
 fi
 
