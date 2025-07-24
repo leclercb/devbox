@@ -58,7 +58,7 @@ chmod 600 /etc/sudoers.d/${USERNAME}
 # Create home and workspace folders
 echo "Create home and workspace folders"
 mkdir -p /home/${USERNAME}/workspace
-chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
+chown -R ${USERNAME}:${GROUPNAME} /home/${USERNAME}
 
 # Configure git
 if [ -n "${GIT_USERNAME}" ]; then
@@ -81,12 +81,12 @@ fi
 echo "Create .ssh folder"
 mkdir -p /home/${USERNAME}/.ssh
 chmod 700 /home/${USERNAME}/.ssh
-chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh
+chown -R ${USERNAME}:${GROUPNAME} /home/${USERNAME}/.ssh
 
 # Set the authorized keys from the AUTHORIZED_KEYS environment variable (if provided)
 if [ -n "${AUTHORIZED_KEYS}" ] && [ ! -f "/home/${USERNAME}/.ssh/authorized_keys" ]; then
     echo "${AUTHORIZED_KEYS}" > /home/${USERNAME}/.ssh/authorized_keys
-    chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh
+    chown -R ${USERNAME}:${GROUPNAME} /home/${USERNAME}/.ssh
     chmod 600 /home/${USERNAME}/.ssh/authorized_keys
     echo "Authorized keys set for user ${USERNAME}"
 fi
