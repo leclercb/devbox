@@ -9,10 +9,10 @@ ARG NODE_VERSION="22"
 ENV DEBIAN_FRONTEND=noninteractive
 
 # APT update
-RUN apt update
+RUN apt-get update
 
 # Install packages
-RUN apt install -y gnupg curl
+RUN apt-get install -y gnupg curl
 
 # Add node sources list
 RUN mkdir -p /etc/apt/keyrings \
@@ -21,17 +21,13 @@ RUN mkdir -p /etc/apt/keyrings \
     && apt update
 
 # Install packages
-RUN apt install -y git iproute2 iputils-ping nodejs openjdk-${JDK_VERSION}-jdk openssh-server sudo telnet vim
+RUN apt-get install -y git iproute2 iputils-ping nodejs openjdk-${JDK_VERSION}-jdk sudo telnet vim
 
 # Install yarn
 RUN npm install --global yarn
 
 # Install code-server
 RUN curl -fsSL https://code-server.dev/install.sh | sh
-
-# Create sshd run directory
-RUN mkdir -p /run/sshd \
-    && chmod 755 /run/sshd
 
 # Copy the script to configure the user's password and authorized keys
 COPY start.sh /usr/local/bin/
@@ -40,5 +36,5 @@ RUN chmod +x /usr/local/bin/start.sh
 # Expose SSH port
 EXPOSE 22
 
-# Start SSH server
+# Execute start script
 CMD ["/usr/local/bin/start.sh"]
